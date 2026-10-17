@@ -90,19 +90,19 @@ export const VolunteerModal: React.FC<VolunteerModalProps> = ({ isOpen, onClose 
             </div>
 
             <h3 className="font-serif text-2xl font-bold text-stone-900 mb-2">
-              Welcome to the Sunrise Family, {formData.name}!
+              Welcome to the WBYEF Family, {formData.name}!
             </h3>
 
             <p className="text-sm text-stone-600 mb-6 leading-relaxed">
-              We have received your volunteer application for <strong>{formData.area}</strong>. Our volunteer coordinator will reach out to you within 48 hours for a brief orientation and campus visit.
+              We have received your volunteer application for <strong>{formData.area}</strong>. Our youth volunteer coordinator will reach out to you within 24–48 hours for orientation and district camp alignment.
             </p>
 
             <div className="p-4 rounded-xl bg-amber-50 text-xs text-stone-700 border border-amber-200/80 mb-6 text-left">
               <span className="font-bold text-amber-900 block mb-1">What to expect next:</span>
               <ul className="list-disc pl-4 space-y-1 text-stone-600">
-                <li>Brief 15-minute introductory call</li>
-                <li>Guided tour of our Behala learning center</li>
-                <li>Child safeguarding policy onboarding</li>
+                <li>Brief introductory call with our District Volunteer Lead</li>
+                <li>Digital or in-person orientation to WBYEF youth programs</li>
+                <li>Assignment to local rural career camps or online mentorship</li>
               </ul>
             </div>
 
@@ -118,7 +118,7 @@ export const VolunteerModal: React.FC<VolunteerModalProps> = ({ isOpen, onClose 
           <div>
             <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-800 mb-2">
               <Users className="w-4 h-4 text-amber-700" />
-              <span>Join As A Volunteer · The Sunrise Academy</span>
+              <span>Join As A Volunteer · WBYEF</span>
             </div>
 
             <h3 id="volunteer-dialog-title" className="font-serif text-2xl font-bold text-stone-900 mb-2">
@@ -126,7 +126,7 @@ export const VolunteerModal: React.FC<VolunteerModalProps> = ({ isOpen, onClose 
             </h3>
 
             <p className="text-xs sm:text-sm text-stone-600 mb-6">
-              Share your skills, time, or knowledge. Whether you are a college student, working professional, or retiree, your passion shapes young minds.
+              Contribute your time, skills, and expertise to empower youth across West Bengal. One volunteer can transform a student's life.
             </p>
 
             <form onSubmit={handleSubmit} noValidate className="space-y-4">
@@ -185,7 +185,7 @@ export const VolunteerModal: React.FC<VolunteerModalProps> = ({ isOpen, onClose 
 
               <div>
                 <label className="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1">
-                  Area of Interest <span className="text-red-500">*</span>
+                  Volunteer Activity / Area <span className="text-red-500">*</span>
                 </label>
                 <select
                   name="area"
@@ -195,12 +195,15 @@ export const VolunteerModal: React.FC<VolunteerModalProps> = ({ isOpen, onClose 
                     errors.area ? 'border-red-500 bg-red-50/20' : 'border-stone-300 focus:border-amber-600'
                   } focus:outline-none focus:ring-1 focus:ring-amber-600`}
                 >
-                  <option value="">Select an area...</option>
-                  <option value="Teaching & Remedial Coaching (Math/English/Science)">Teaching & Remedial Coaching (Math/English/Science)</option>
-                  <option value="Digital Literacy & Basic Coding Mentorship">Digital Literacy & Basic Coding Mentorship</option>
-                  <option value="Sports, Yoga & Creative Arts Training">Sports, Yoga & Creative Arts Training</option>
-                  <option value="Healthcare & Dental Camps Assistance">Healthcare & Dental Camps Assistance</option>
-                  <option value="Event Coordination & Storytelling Circles">Event Coordination & Storytelling Circles</option>
+                  <option value="">Select an activity...</option>
+                  <option value="Teaching & Mentoring Underprivileged Students">Teaching & Mentoring</option>
+                  <option value="Career Guidance & Higher Education Advice">Career Guidance</option>
+                  <option value="Community & Household Surveys">Community Surveys</option>
+                  <option value="Rural Outreach & Village Career Camps">Rural Outreach</option>
+                  <option value="Digital Awareness & Internet Safety">Digital Awareness</option>
+                  <option value="Event Management & Youth Conferences">Event Management</option>
+                  <option value="Social Campaigns & Public Drives">Social Campaigns</option>
+                  <option value="Youth Leadership & Peer Mentoring">Youth Leadership Activities</option>
                 </select>
                 {errors.area && <p className="text-xs text-red-600 mt-1">{errors.area}</p>}
               </div>

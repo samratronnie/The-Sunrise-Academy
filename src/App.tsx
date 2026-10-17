@@ -1,27 +1,47 @@
 import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar.tsx';
 import { Hero } from './components/Hero.tsx';
-import { Mission } from './components/Mission.tsx';
-import { ImpactStats } from './components/ImpactStats.tsx';
+import { ImpactAreas } from './components/ImpactAreas.tsx';
 import { AboutUs } from './components/AboutUs.tsx';
-import { Facilities } from './components/Facilities.tsx';
+import { VisionMission } from './components/VisionMission.tsx';
 import { Programs } from './components/Programs.tsx';
-import { Testimonials } from './components/Testimonials.tsx';
-import { CallToAction } from './components/CallToAction.tsx';
+import { RuralBengalInitiative } from './components/RuralBengalInitiative.tsx';
+import { WomenEmpowerment } from './components/WomenEmpowerment.tsx';
+import { YouthLeadership } from './components/YouthLeadership.tsx';
+import { VolunteerSection } from './components/VolunteerSection.tsx';
+import { PartnersSection } from './components/PartnersSection.tsx';
+import { DonationSection } from './components/DonationSection.tsx';
 import { ContactUs } from './components/ContactUs.tsx';
 import { Footer } from './components/Footer.tsx';
 import { DonateModal } from './components/DonateModal.tsx';
 import { VolunteerModal } from './components/VolunteerModal.tsx';
+import { PartnerModal } from './components/PartnerModal.tsx';
 
 export default function App() {
   const [donateModalOpen, setDonateModalOpen] = useState(false);
   const [donatePresetAmount, setDonatePresetAmount] = useState<number>(1000);
   const [volunteerModalOpen, setVolunteerModalOpen] = useState(false);
+  const [partnerModalOpen, setPartnerModalOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>('home');
 
   // Track active section for navigation highlight
   useEffect(() => {
-    const sectionIds = ['home', 'mission', 'about-us', 'impact', 'facilities', 'programs', 'testimonials', 'contact-us'];
+    const sectionIds = [
+      'home',
+      'impact-areas',
+      'about-us',
+      'vision-mission',
+      'programmes',
+      'facilities',
+      'rural-initiative',
+      'women-empowerment',
+      'youth-leadership',
+      'volunteer',
+      'approach',
+      'partners',
+      'donate',
+      'contact-us',
+    ];
 
     const handleScroll = () => {
       const scrollPosition = window.scrollY + 200;
@@ -29,7 +49,15 @@ export default function App() {
       for (let i = sectionIds.length - 1; i >= 0; i--) {
         const section = document.getElementById(sectionIds[i]);
         if (section && section.offsetTop <= scrollPosition) {
-          setActiveSection(sectionIds[i]);
+          // Map sub-anchors to primary nav items
+          let navKey = sectionIds[i];
+          if (['impact-areas', 'vision-mission'].includes(navKey)) navKey = 'about-us';
+          if (['rural-initiative', 'women-empowerment', 'youth-leadership'].includes(navKey))
+            navKey = 'programmes';
+          if (['volunteer', 'approach', 'partners', 'donate'].includes(navKey))
+            navKey = 'programmes';
+
+          setActiveSection(navKey);
           break;
         }
       }
@@ -48,15 +76,19 @@ export default function App() {
     setVolunteerModalOpen(true);
   };
 
-  const handleScrollToContact = () => {
-    const contactElem = document.getElementById('contact-us');
-    contactElem?.scrollIntoView({ behavior: 'smooth' });
+  const handleOpenPartner = () => {
+    setPartnerModalOpen(true);
+  };
+
+  const handleJoinMission = () => {
+    const el = document.getElementById('impact-areas');
+    el?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FAF9F6] text-stone-900 selection:bg-amber-200 selection:text-amber-900">
+    <div className="min-h-screen flex flex-col bg-[#FAF8F5] text-stone-900 selection:bg-amber-200 selection:text-amber-900">
       
-      {/* 3-Zone Top Bar Navigation Contract */}
+      {/* 3-Zone Navigation: Home, About Us, Programmes, Facilities, Contact Us + Become a Volunteer & Donate Now CTAs */}
       <Navbar
         onOpenDonate={handleOpenDonate}
         onOpenVolunteer={handleOpenVolunteer}
@@ -68,55 +100,68 @@ export default function App() {
         <Hero
           onOpenDonate={handleOpenDonate}
           onOpenVolunteer={handleOpenVolunteer}
+          onJoinMission={handleJoinMission}
         />
 
-        {/* 2. Our Mission */}
-        <Mission
-          onLearnMore={() => {
-            const el = document.getElementById('about-us');
-            el?.scrollIntoView({ behavior: 'smooth' });
-          }}
-          onOpenDonate={handleOpenDonate}
-        />
+        {/* 2. Impact Areas (Our Impact Vision) */}
+        <ImpactAreas />
 
-        {/* 3. Our Impact Statistics */}
-        <ImpactStats
-          onOpenDonate={handleOpenDonate}
-        />
-
-        {/* 4. About Us (Who We Are) */}
+        {/* 3. About WBYEF (Who We Are) */}
         <AboutUs
           onOpenDonate={handleOpenDonate}
           onOpenVolunteer={handleOpenVolunteer}
         />
 
-        {/* 5. Campus Facilities */}
-        <Facilities
-          onOpenDonate={handleOpenDonate}
-        />
+        {/* 4. Vision & Mission (Core Focus Areas) */}
+        <VisionMission />
 
-        {/* 6. Transformative Educational Programs */}
+        {/* 5. Programmes (Youth Career Mission + Facilities) */}
         <Programs
           onOpenDonate={handleOpenDonate}
+          onOpenVolunteer={handleOpenVolunteer}
         />
 
-        {/* 7. Community Testimonials & Voices */}
-        <Testimonials />
+        {/* 6. Rural Bengal Initiative (Empowering Rural Youth) */}
+        <RuralBengalInitiative
+          onOpenVolunteer={handleOpenVolunteer}
+          onOpenDonate={() => handleOpenDonate(2500)}
+        />
 
-        {/* 10. Call to Action (Large Banner Section) */}
-        <CallToAction
+        {/* 7. Women Empowerment (Educate. Empower. Enable.) */}
+        <WomenEmpowerment
+          onOpenVolunteer={handleOpenVolunteer}
           onOpenDonate={() => handleOpenDonate(1000)}
-          onScrollToContact={handleScrollToContact}
         />
 
-        {/* 11. Contact Us */}
+        {/* 8. Youth Leadership Programme (Creating Tomorrow's Leaders) */}
+        <YouthLeadership
+          onOpenVolunteer={handleOpenVolunteer}
+        />
+
+        {/* 9. Volunteer Section (Be The Change + Sustainable Empowerment Framework Approach) */}
+        <VolunteerSection
+          onOpenVolunteer={handleOpenVolunteer}
+        />
+
+        {/* 10. Partners Section (Together We Can Do More) */}
+        <PartnersSection
+          onOpenPartner={handleOpenPartner}
+        />
+
+        {/* 11. Donation Section (Your Contribution Can Change A Life) */}
+        <DonationSection
+          onOpenDonate={handleOpenDonate}
+        />
+
+        {/* 12. Contact Us (Get In Touch) */}
         <ContactUs />
       </main>
 
-      {/* Footer */}
+      {/* 13. Footer */}
       <Footer
         onOpenDonate={() => handleOpenDonate(1000)}
         onOpenVolunteer={handleOpenVolunteer}
+        onOpenPartner={handleOpenPartner}
       />
 
       {/* Interactive Donation Flow Modal */}
@@ -130,6 +175,12 @@ export default function App() {
       <VolunteerModal
         isOpen={volunteerModalOpen}
         onClose={() => setVolunteerModalOpen(false)}
+      />
+
+      {/* Interactive Institutional Partnership Modal */}
+      <PartnerModal
+        isOpen={partnerModalOpen}
+        onClose={() => setPartnerModalOpen(false)}
       />
 
     </div>

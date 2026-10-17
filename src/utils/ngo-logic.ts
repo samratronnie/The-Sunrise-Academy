@@ -41,9 +41,9 @@ export function calculateDonationImpact(amountInInr: number): DonationImpact {
 
 export interface ContactFormData {
   name: string;
-  email: string;
   phone: string;
   message: string;
+  email?: string;
 }
 
 export interface ValidationResult {
@@ -61,14 +61,6 @@ export function validateContactForm(data: ContactFormData): ValidationResult {
     errors.name = 'Name must be at least 2 characters.';
   }
 
-  const trimmedEmail = (data.email || '').trim();
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!trimmedEmail) {
-    errors.email = 'Email address is required.';
-  } else if (!emailRegex.test(trimmedEmail)) {
-    errors.email = 'Please provide a valid email address.';
-  }
-
   const cleanedPhone = (data.phone || '').replace(/[\s\-\(\)\+]/g, '');
   if (!cleanedPhone) {
     errors.phone = 'Phone number is required.';
@@ -81,6 +73,13 @@ export function validateContactForm(data: ContactFormData): ValidationResult {
     errors.message = 'Please enter your message.';
   } else if (trimmedMessage.length < 5) {
     errors.message = 'Message must be at least 5 characters.';
+  }
+
+  if (data.email && data.email.trim()) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(data.email.trim())) {
+      errors.email = 'Please provide a valid email address.';
+    }
   }
 
   return {
@@ -117,6 +116,42 @@ export function validateVolunteerForm(data: VolunteerFormData): ValidationResult
   }
   if (!data.availability || data.availability === '') {
     errors.availability = 'Please select your availability.';
+  }
+
+  return {
+    isValid: Object.keys(errors).length === 0,
+    errors,
+  };
+}
+
+export interface PartnerFormData {
+  organizationName: string;
+  contactPerson: string;
+  email: string;
+  phone: string;
+  partnerType: string;
+  collaborationInterest: string;
+}
+
+export function validatePartnerForm(data: PartnerFormData): ValidationResult {
+  const errors: Record<string, string> = {};
+
+  if (!data.organizationName?.trim()) {
+    errors.organizationName = 'Organization / Institution name is required.';
+  }
+  if (!data.contactPerson?.trim()) {
+    errors.contactPerson = 'Contact person name is required.';
+  }
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!data.email?.trim() || !emailRegex.test(data.email.trim())) {
+    errors.email = 'Valid email address is required.';
+  }
+  const cleanedPhone = (data.phone || '').replace(/[\s\-\(\)\+]/g, '');
+  if (!cleanedPhone || cleanedPhone.length < 7) {
+    errors.phone = 'Valid phone number is required.';
+  }
+  if (!data.partnerType || data.partnerType === '') {
+    errors.partnerType = 'Please select your organization type.';
   }
 
   return {

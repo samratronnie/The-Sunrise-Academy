@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { X, Heart, ShieldCheck, CheckCircle2, ArrowRight, Download, Printer, QrCode } from 'lucide-react';
-import { ACADEMY_DATA } from '../data/academyData.ts';
+import { WBYEF_DATA } from '../data/academyData.ts';
 import { calculateDonationImpact, formatINR } from '../utils/ngo-logic.ts';
 
 interface DonateModalProps {
@@ -100,7 +100,7 @@ export const DonateModal: React.FC<DonateModalProps> = ({
               Thank You for Your Generosity!
             </h3>
             <p className="text-xs sm:text-sm text-stone-600 mb-6">
-              Your donation directly empowers children at The Sunrise Academy.
+              Your donation directly empowers youth programs across West Bengal.
             </p>
 
             {/* Formal Receipt Card */}
@@ -127,11 +127,11 @@ export const DonateModal: React.FC<DonateModalProps> = ({
               </div>
               <div className="flex justify-between">
                 <span>Institution:</span>
-                <span className="font-medium text-stone-900">The Sunrise Academy (Kolkata)</span>
+                <span className="font-medium text-stone-900">{WBYEF_DATA.brand.name}</span>
               </div>
               <div className="flex justify-between border-t border-stone-200/80 pt-2 text-[11px] text-stone-700">
                 <span>Tax Exemption:</span>
-                <span>Eligible under Sec 80G ({ACADEMY_DATA.brand.registrationNumber})</span>
+                <span>Eligible under Sec 80G ({WBYEF_DATA.brand.regNumber})</span>
               </div>
             </div>
 
@@ -158,15 +158,15 @@ export const DonateModal: React.FC<DonateModalProps> = ({
           <div>
             <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-800 mb-2">
               <Heart className="w-4 h-4 text-amber-700 fill-amber-700/20" />
-              <span>Support Our Mission · The Sunrise Academy</span>
+              <span>Support Our Mission · WBYEF</span>
             </div>
 
             <h3 id="donate-dialog-title" className="font-serif text-2xl font-bold text-stone-900 mb-2">
-              Transform a Child’s Life Today
+              Empower Bengal’s Youth Today
             </h3>
 
             <p className="text-xs sm:text-sm text-stone-600 mb-6">
-              Your gift funds high-quality education, computer literacy, nutritious meals, and school kits for underprivileged children in Kolkata.
+              Your gift funds rural career camps, government exam coaching, digital literacy labs, and women's self-reliance programs.
             </p>
 
             {/* Frequency Selector */}

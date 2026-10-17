@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
-import { Sun, Heart, Mail, Phone, MapPin, ArrowRight, ShieldCheck, Check } from 'lucide-react';
-import { ACADEMY_DATA } from '../data/academyData.ts';
+import { Sparkles, Heart, Phone, MapPin, ShieldCheck, Check } from 'lucide-react';
+import { WBYEF_DATA } from '../data/academyData.ts';
 
 interface FooterProps {
   onOpenDonate: () => void;
   onOpenVolunteer: () => void;
+  onOpenPartner: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onOpenDonate, onOpenVolunteer }) => {
+export const Footer: React.FC<FooterProps> = ({
+  onOpenDonate,
+  onOpenVolunteer,
+  onOpenPartner,
+}) => {
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
 
@@ -35,25 +40,30 @@ export const Footer: React.FC<FooterProps> = ({ onOpenDonate, onOpenVolunteer })
           {/* Brand & Mandate Column (4 cols) */}
           <div className="lg:col-span-4">
             <div className="flex items-center gap-2.5 mb-4">
-              <div className="w-9 h-9 rounded-lg bg-amber-600 flex items-center justify-center text-white">
-                <Sun className="w-5 h-5 text-white" />
+              <div className="w-10 h-10 rounded-lg bg-gradient-to-tr from-amber-700 to-amber-500 flex items-center justify-center text-white font-black text-xs tracking-wider">
+                {WBYEF_DATA.brand.acronym}
               </div>
-              <span className="font-serif text-xl font-bold text-white tracking-tight">
-                {ACADEMY_DATA.brand.name}
-              </span>
+              <div className="flex flex-col">
+                <span className="font-serif text-lg font-bold text-white tracking-tight leading-snug">
+                  {WBYEF_DATA.brand.name}
+                </span>
+                <span className="text-[11px] text-amber-400 font-medium">
+                  "{WBYEF_DATA.brand.tagline}"
+                </span>
+              </div>
             </div>
 
             <p className="text-xs sm:text-sm text-stone-400 leading-relaxed mb-6">
-              {ACADEMY_DATA.brand.tagline}. A registered charitable non-profit organization providing free quality education, digital training, and holistic nourishment to underprivileged children in Kolkata.
+              A youth-centric social welfare organisation committed to enabling educational, professional, and social advancement for young people across West Bengal.
             </p>
 
             <div className="space-y-2 text-xs text-stone-400">
               <div className="flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span>80G & 12A Certified · Tax Exempted Contributions</span>
+                <span>{WBYEF_DATA.brand.taxExemption} · Tax Deductible Contributions</span>
               </div>
               <div className="text-[11px] text-stone-500 pl-6">
-                Reg No: {ACADEMY_DATA.brand.registrationNumber}
+                Reg No: {WBYEF_DATA.brand.regNumber}
               </div>
             </div>
           </div>
@@ -61,7 +71,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenDonate, onOpenVolunteer })
           {/* Quick Links Column (2 cols) */}
           <div className="lg:col-span-2">
             <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4">
-              Navigation
+              Quick Links
             </h4>
             <ul className="space-y-2.5 text-xs text-stone-400">
               <li>
@@ -84,11 +94,11 @@ export const Footer: React.FC<FooterProps> = ({ onOpenDonate, onOpenVolunteer })
               </li>
               <li>
                 <a
-                  href="#impact"
-                  onClick={(e) => scrollToSection(e, '#impact')}
+                  href="#programmes"
+                  onClick={(e) => scrollToSection(e, '#programmes')}
                   className="hover:text-amber-400 transition-colors"
                 >
-                  Our Impact
+                  Programmes
                 </a>
               </li>
               <li>
@@ -98,15 +108,6 @@ export const Footer: React.FC<FooterProps> = ({ onOpenDonate, onOpenVolunteer })
                   className="hover:text-amber-400 transition-colors"
                 >
                   Facilities
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#testimonials"
-                  onClick={(e) => scrollToSection(e, '#testimonials')}
-                  className="hover:text-amber-400 transition-colors"
-                >
-                  Testimonials
                 </a>
               </li>
               <li>
@@ -121,61 +122,112 @@ export const Footer: React.FC<FooterProps> = ({ onOpenDonate, onOpenVolunteer })
             </ul>
           </div>
 
-          {/* Direct Contact Column (3 cols) */}
-          <div className="lg:col-span-3">
+          {/* Get Involved Column (2 cols) */}
+          <div className="lg:col-span-2">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4">
+              Get Involved
+            </h4>
+            <ul className="space-y-2.5 text-xs text-stone-400">
+              <li>
+                <button
+                  type="button"
+                  onClick={onOpenVolunteer}
+                  className="hover:text-amber-400 transition-colors text-left cursor-pointer"
+                >
+                  Volunteer
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  onClick={onOpenPartner}
+                  className="hover:text-amber-400 transition-colors text-left cursor-pointer"
+                >
+                  Partner With Us
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  onClick={onOpenDonate}
+                  className="hover:text-amber-400 transition-colors text-left cursor-pointer"
+                >
+                  Donate
+                </button>
+              </li>
+            </ul>
+
+            <h4 className="text-xs font-bold uppercase tracking-wider text-white mt-6 mb-3">
+              Social Media
+            </h4>
+            <div className="flex flex-col gap-1.5 text-xs text-stone-400">
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-amber-400 transition-colors"
+              >
+                Facebook
+              </a>
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-amber-400 transition-colors"
+              >
+                Instagram
+              </a>
+              <a
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-amber-400 transition-colors"
+              >
+                LinkedIn
+              </a>
+              <a
+                href="https://youtube.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-amber-400 transition-colors"
+              >
+                YouTube
+              </a>
+            </div>
+          </div>
+
+          {/* Contact & Stay Connected Column (4 cols) */}
+          <div className="lg:col-span-4">
             <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4">
               Contact Desk
             </h4>
-            <ul className="space-y-3 text-xs text-stone-400">
-              <li className="flex items-start gap-2.5">
+            <ul className="space-y-2.5 text-xs text-stone-400 mb-6">
+              <li className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
-                <span>{ACADEMY_DATA.brand.address}</span>
+                <span>{WBYEF_DATA.contact.address}</span>
               </li>
-              <li className="flex items-center gap-2.5">
+              <li className="flex items-center gap-2">
                 <Phone className="w-4 h-4 text-amber-500 shrink-0" />
                 <a
-                  href={`tel:${ACADEMY_DATA.brand.phone.replace(/\s+/g, '')}`}
+                  href={`tel:${WBYEF_DATA.contact.phone.replace(/\s+/g, '')}`}
                   className="hover:text-white transition-colors"
                 >
-                  {ACADEMY_DATA.brand.phone}
+                  {WBYEF_DATA.contact.phone}
                 </a>
               </li>
-              <li className="flex items-start gap-2.5">
-                <Mail className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
-                <div className="truncate">
-                  <a
-                    href={`mailto:${ACADEMY_DATA.brand.email}`}
-                    className="hover:text-white transition-colors block truncate"
-                  >
-                    {ACADEMY_DATA.brand.email}
-                  </a>
-                  <a
-                    href={`mailto:${ACADEMY_DATA.brand.secondaryEmail}`}
-                    className="hover:text-white transition-colors text-[11px] text-stone-500 block truncate"
-                  >
-                    {ACADEMY_DATA.brand.secondaryEmail}
-                  </a>
-                </div>
-              </li>
             </ul>
-          </div>
 
-          {/* Action & Newsletter Column (3 cols) */}
-          <div className="lg:col-span-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4">
-              Stay Connected
-            </h4>
-            <p className="text-xs text-stone-400 mb-4 leading-relaxed">
-              Receive our quarterly student achievement bulletin and community impact reports.
-            </p>
-
+            {/* Newsletter Subscription */}
             {subscribed ? (
               <div className="p-3 rounded-lg bg-emerald-950/60 border border-emerald-800 text-xs text-emerald-300 flex items-center gap-2">
                 <Check className="w-4 h-4" />
-                <span>Subscribed! Thank you for staying connected.</span>
+                <span>Subscribed! You will receive our monthly youth bulletin.</span>
               </div>
             ) : (
-              <form onSubmit={handleSubscribe} className="space-y-2 mb-6">
+              <form onSubmit={handleSubscribe} className="space-y-2">
+                <span className="text-[11px] text-stone-400 block font-medium">
+                  Subscribe to Bengal Youth Career Updates
+                </span>
                 <div className="relative">
                   <input
                     type="email"
@@ -187,46 +239,28 @@ export const Footer: React.FC<FooterProps> = ({ onOpenDonate, onOpenVolunteer })
                   />
                   <button
                     type="submit"
-                    className="absolute right-1 top-1 bottom-1 px-3 bg-amber-600 hover:bg-amber-700 text-white text-xs font-medium rounded-md transition-colors"
+                    className="absolute right-1 top-1 bottom-1 px-3 bg-amber-600 hover:bg-amber-700 text-white text-xs font-medium rounded-md transition-colors cursor-pointer"
                   >
                     Join
                   </button>
                 </div>
               </form>
             )}
-
-            <div className="flex flex-col gap-2 pt-2">
-              <button
-                type="button"
-                onClick={onOpenDonate}
-                className="w-full py-2.5 px-3 rounded-lg bg-amber-600 hover:bg-amber-700 text-white font-semibold text-xs transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
-              >
-                <Heart className="w-3.5 h-3.5 fill-white/20 text-white" />
-                <span>Donate Now</span>
-              </button>
-              <button
-                type="button"
-                onClick={onOpenVolunteer}
-                className="w-full py-2 px-3 rounded-lg border border-stone-700 hover:bg-stone-900 text-stone-300 text-xs font-medium transition-colors cursor-pointer"
-              >
-                Volunteer With Us
-              </button>
-            </div>
           </div>
 
         </div>
 
-        {/* Bottom Operational Bar & Copyright */}
+        {/* Bottom Bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-500">
           <div>
-            © {new Date().getFullYear()} The Sunrise Academy. All rights reserved.
+            © {new Date().getFullYear()} West Bengal Youth Empowerment Foundation (WBYEF). All rights reserved.
           </div>
-          <div className="flex items-center gap-4">
-            <span className="text-stone-400">Non-Profit Educational Society</span>
+          <div className="flex items-center gap-3">
+            <span className="text-stone-400">"{WBYEF_DATA.brand.tagline}"</span>
             <span>·</span>
-            <span className="text-stone-400">Section 80G Tax Exemption</span>
+            <span className="text-stone-400">Social Welfare Organisation</span>
             <span>·</span>
-            <span className="text-stone-400">Behala, Kolkata</span>
+            <span className="text-stone-400">Kolkata, West Bengal</span>
           </div>
         </div>
 

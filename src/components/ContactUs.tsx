@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { Phone, Mail, MapPin, Clock, Send, CheckCircle2, AlertCircle } from 'lucide-react';
-import { ACADEMY_DATA } from '../data/academyData.ts';
+import { Phone, MapPin, Clock, Send, CheckCircle2, AlertCircle } from 'lucide-react';
+import { WBYEF_DATA } from '../data/academyData.ts';
 import { validateContactForm, ContactFormData } from '../utils/ngo-logic.ts';
 
 export const ContactUs: React.FC = () => {
   const [formData, setFormData] = useState<ContactFormData>({
     name: '',
-    email: '',
     phone: '',
     message: '',
   });
@@ -36,7 +35,6 @@ export const ContactUs: React.FC = () => {
     }
 
     setIsSubmitting(true);
-    // Simulate network submission delay
     setTimeout(() => {
       setIsSubmitting(false);
       setSubmitted(true);
@@ -46,7 +44,6 @@ export const ContactUs: React.FC = () => {
   const handleReset = () => {
     setFormData({
       name: '',
-      email: '',
       phone: '',
       message: '',
     });
@@ -55,23 +52,23 @@ export const ContactUs: React.FC = () => {
   };
 
   return (
-    <section id="contact-us" className="py-16 md:py-24 bg-[#FAF9F6] border-b border-stone-200">
+    <section id="contact-us" className="py-16 md:py-24 bg-[#FAF8F5] border-b border-stone-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="max-w-3xl mb-14">
           <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-amber-800 mb-3">
-            <span>Connect & Support</span>
+            <span>Contact Information</span>
             <span aria-hidden="true">·</span>
-            <span>Reach Our Desk</span>
+            <span>Reach WBYEF</span>
           </div>
 
           <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-stone-900 tracking-tight leading-tight mb-4">
-            Contact The Sunrise Academy
+            {WBYEF_DATA.contact.heading}
           </h2>
 
           <p className="text-base sm:text-lg text-stone-600 leading-relaxed">
-            Have questions about student admissions, volunteering opportunities, corporate CSR partnerships, or visiting our Behala campus? We’d love to hear from you.
+            {WBYEF_DATA.contact.subHeading}
           </p>
         </div>
 
@@ -82,88 +79,61 @@ export const ContactUs: React.FC = () => {
             
             <div className="bg-white p-6 sm:p-8 rounded-2xl border border-stone-200 shadow-xs">
               <h3 className="font-serif text-xl font-bold text-stone-900 mb-6">
-                Contact Information
+                Official Foundation Desk
               </h3>
 
               <div className="space-y-6">
                 
-                {/* Phone */}
+                {/* 📍 Registered Office Address */}
                 <div className="flex items-start gap-4">
                   <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center shrink-0 border border-amber-200/50">
-                    <Phone className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <div className="text-xs font-bold uppercase tracking-wider text-stone-700 mb-0.5">
-                      Phone Number
-                    </div>
-                    <a
-                      href={`tel:${ACADEMY_DATA.brand.phone.replace(/\s+/g, '')}`}
-                      className="text-base font-semibold text-stone-900 hover:text-amber-700 transition-colors block"
-                    >
-                      {ACADEMY_DATA.brand.phone}
-                    </a>
-                    <span className="text-xs text-stone-700">
-                      Alternate: {ACADEMY_DATA.brand.alternatePhone}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Email */}
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center shrink-0 border border-blue-200/50">
-                    <Mail className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <div className="text-xs font-bold uppercase tracking-wider text-stone-700 mb-0.5">
-                      Email Address
-                    </div>
-                    <a
-                      href={`mailto:${ACADEMY_DATA.brand.email}`}
-                      className="text-sm sm:text-base font-semibold text-stone-900 hover:text-amber-700 transition-colors block truncate"
-                    >
-                      {ACADEMY_DATA.brand.email}
-                    </a>
-                    <a
-                      href={`mailto:${ACADEMY_DATA.brand.secondaryEmail}`}
-                      className="text-xs text-stone-700 hover:text-stone-900 transition-colors block truncate"
-                    >
-                      {ACADEMY_DATA.brand.secondaryEmail}
-                    </a>
-                  </div>
-                </div>
-
-                {/* Address */}
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center shrink-0 border border-emerald-200/50">
                     <MapPin className="w-5 h-5" />
                   </div>
                   <div>
                     <div className="text-xs font-bold uppercase tracking-wider text-stone-700 mb-0.5">
-                      Campus & Office Location
+                      Registered Office Address
                     </div>
                     <p className="text-sm font-semibold text-stone-900 leading-snug">
-                      {ACADEMY_DATA.brand.address}
+                      {WBYEF_DATA.contact.address}
                     </p>
-                    <span className="text-xs text-stone-700">
+                    <span className="text-xs text-stone-600">
                       Near Diamond Harbour Road, South Kolkata
                     </span>
                   </div>
                 </div>
 
-                {/* Visiting Hours */}
+                {/* 📞 Mobile Number */}
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center shrink-0 border border-blue-200/50">
+                    <Phone className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <div className="text-xs font-bold uppercase tracking-wider text-stone-700 mb-0.5">
+                      Mobile Number
+                    </div>
+                    <a
+                      href={`tel:${WBYEF_DATA.contact.phone.replace(/\s+/g, '')}`}
+                      className="text-base font-semibold text-stone-900 hover:text-amber-700 transition-colors block"
+                    >
+                      {WBYEF_DATA.contact.phone}
+                    </a>
+                  </div>
+                </div>
+
+                {/* Office Hours */}
                 <div className="flex items-start gap-4 pt-4 border-t border-stone-100">
                   <div className="w-10 h-10 rounded-xl bg-stone-100 text-stone-700 flex items-center justify-center shrink-0">
                     <Clock className="w-5 h-5" />
                   </div>
                   <div>
                     <div className="text-xs font-bold uppercase tracking-wider text-stone-700 mb-0.5">
-                      Office Hours
+                      Visiting & Counseling Hours
                     </div>
-                    <p className="text-xs text-stone-800 font-medium">
-                      {ACADEMY_DATA.brand.visitingHours}
+                    <p className="text-sm font-semibold text-stone-900 leading-snug">
+                      Monday – Saturday: 9:00 AM – 6:30 PM (IST)
                     </p>
-                    <span className="text-xs text-stone-700">
-                      Sunday: Closed (Volunteer coaching by appointment)
+                    <span className="text-xs text-stone-600">
+                      Sunday: Closed (Field camps by appointment)
                     </span>
                   </div>
                 </div>
@@ -171,10 +141,12 @@ export const ContactUs: React.FC = () => {
               </div>
             </div>
 
-            {/* Quick Visit Card */}
-            <div className="p-5 rounded-2xl bg-amber-50/60 border border-amber-200/80 text-xs text-stone-700">
-              <span className="font-bold text-amber-900 block mb-1">Open Door Policy for Donors & Visitors</span>
-              We warmly invite sponsors, parents, and well-wishers to tour our classrooms and computer lab during open hours to observe classes and interact with our teachers.
+            {/* Open Door Policy Note */}
+            <div className="p-5 rounded-2xl bg-amber-50/70 border border-amber-200/80 text-xs text-stone-700">
+              <span className="font-bold text-amber-900 block mb-1">
+                Open Door Policy for Students, Educators & Partners
+              </span>
+              Students and parents are welcome to visit our counseling rooms and digital facilities Monday to Saturday, 9:00 AM – 6:30 PM (IST).
             </div>
 
           </div>
@@ -185,7 +157,7 @@ export const ContactUs: React.FC = () => {
               Send Us a Message
             </h3>
             <p className="text-xs sm:text-sm text-stone-600 mb-8">
-              Fill out the details below and our coordinator will respond within 24 hours.
+              Fill in your contact details and our youth coordinator will respond within 24 hours.
             </p>
 
             {submitted ? (
@@ -197,7 +169,7 @@ export const ContactUs: React.FC = () => {
                   Thank You, {formData.name}!
                 </h4>
                 <p className="text-sm text-emerald-800 max-w-md mx-auto mb-6 leading-relaxed">
-                  Your message has been safely received. A member of The Sunrise Academy team will reach out to you at <strong>{formData.email}</strong> or <strong>{formData.phone}</strong> shortly.
+                  Your message has been safely received. A member of the WBYEF team will contact you at <strong>{formData.phone}</strong> shortly.
                 </p>
                 <button
                   type="button"
@@ -210,51 +182,27 @@ export const ContactUs: React.FC = () => {
             ) : (
               <form onSubmit={handleSubmit} noValidate className="space-y-5">
                 
-                {/* Full Name */}
-                <div>
-                  <label htmlFor="contact-name" className="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1.5">
-                    Full Name <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    id="contact-name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    placeholder="e.g. Ananya Mukherjee"
-                    className={`w-full px-4 py-2.5 rounded-lg text-sm bg-white border ${
-                      errors.name ? 'border-red-500 bg-red-50/20' : 'border-stone-300 focus:border-amber-600'
-                    } focus:outline-none focus:ring-1 focus:ring-amber-600 transition-colors`}
-                  />
-                  {errors.name && (
-                    <p className="text-xs text-red-600 mt-1 flex items-center gap-1">
-                      <AlertCircle className="w-3.5 h-3.5" />
-                      {errors.name}
-                    </p>
-                  )}
-                </div>
-
-                {/* Email & Phone Grid */}
+                {/* Full Name & Phone Number */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label htmlFor="contact-email" className="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1.5">
-                      Email Address <span className="text-red-500">*</span>
+                    <label htmlFor="contact-name" className="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-1.5">
+                      Full Name <span className="text-red-500">*</span>
                     </label>
                     <input
-                      type="email"
-                      id="contact-email"
-                      name="email"
-                      value={formData.email}
+                      type="text"
+                      id="contact-name"
+                      name="name"
+                      value={formData.name}
                       onChange={handleChange}
-                      placeholder="e.g. ananya@example.com"
+                      placeholder="e.g. Subir Karmakar"
                       className={`w-full px-4 py-2.5 rounded-lg text-sm bg-white border ${
-                        errors.email ? 'border-red-500 bg-red-50/20' : 'border-stone-300 focus:border-amber-600'
+                        errors.name ? 'border-red-500 bg-red-50/20' : 'border-stone-300 focus:border-amber-600'
                       } focus:outline-none focus:ring-1 focus:ring-amber-600 transition-colors`}
                     />
-                    {errors.email && (
+                    {errors.name && (
                       <p className="text-xs text-red-600 mt-1 flex items-center gap-1">
                         <AlertCircle className="w-3.5 h-3.5" />
-                        {errors.email}
+                        {errors.name}
                       </p>
                     )}
                   </div>
@@ -294,7 +242,7 @@ export const ContactUs: React.FC = () => {
                     rows={4}
                     value={formData.message}
                     onChange={handleChange}
-                    placeholder="How would you like to partner with or support The Sunrise Academy?"
+                    placeholder="How would you like to connect with West Bengal Youth Empowerment Foundation?"
                     className={`w-full px-4 py-2.5 rounded-lg text-sm bg-white border ${
                       errors.message ? 'border-red-500 bg-red-50/20' : 'border-stone-300 focus:border-amber-600'
                     } focus:outline-none focus:ring-1 focus:ring-amber-600 transition-colors resize-y`}
@@ -307,17 +255,17 @@ export const ContactUs: React.FC = () => {
                   )}
                 </div>
 
-                {/* Submit Button */}
+                {/* Button: Send Message */}
                 <button
                   type="submit"
                   disabled={isSubmitting}
                   className="w-full sm:w-auto px-8 py-3.5 rounded-lg bg-amber-600 hover:bg-amber-700 text-white font-semibold text-sm shadow-xs transition-all active:scale-95 disabled:opacity-50 cursor-pointer flex items-center justify-center gap-2"
                 >
                   {isSubmitting ? (
-                    <span>Submitting...</span>
+                    <span>Sending Message...</span>
                   ) : (
                     <>
-                      <span>Submit Message</span>
+                      <span>Send Message</span>
                       <Send className="w-4 h-4" />
                     </>
                   )}
