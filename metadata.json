@@ -1,0 +1,6 @@
+{
+  "name": "The Sunrise Academy - Empowering Communities Through Education",
+  "description": "The Sunrise Academy is an NGO dedicated to providing quality education, skill development, and hope to underprivileged children and communities.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
