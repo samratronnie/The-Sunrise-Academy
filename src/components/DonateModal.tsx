@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, Heart, ShieldCheck, CheckCircle2, ArrowRight, Download, Printer, QrCode } from 'lucide-react';
 import { WBYEF_DATA } from '../data/academyData.ts';
 import { calculateDonationImpact, formatINR } from '../utils/ngo-logic.ts';
+import { useAuth } from '../context/AuthContext.tsx';
 
 interface DonateModalProps {
   isOpen: boolean;
@@ -14,6 +15,7 @@ export const DonateModal: React.FC<DonateModalProps> = ({
   onClose,
   initialAmount = 1000,
 }) => {
+  const { user } = useAuth();
   const [amount, setAmount] = useState<number>(initialAmount);
   const [frequency, setFrequency] = useState<'one-time' | 'monthly'>('one-time');
   const [paymentMethod, setPaymentMethod] = useState<'upi' | 'card' | 'netbanking'>('upi');
@@ -22,6 +24,13 @@ export const DonateModal: React.FC<DonateModalProps> = ({
   const [donorEmail, setDonorEmail] = useState('');
   const [donorPan, setDonorPan] = useState('');
   const [donorPhone, setDonorPhone] = useState('');
+
+  useEffect(() => {
+    if (isOpen && user) {
+      setDonorName((prev) => prev || user.displayName || '');
+      setDonorEmail((prev) => prev || user.email || '');
+    }
+  }, [isOpen, user]);
 
   const [isProcessing, setIsProcessing] = useState(false);
   const [receiptData, setReceiptData] = useState<{

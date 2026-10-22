@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Sun, Heart, Menu, X, Users, Sparkles } from 'lucide-react';
+import { Sun, Heart, Menu, X, Users, Sparkles, LogIn, User } from 'lucide-react';
 import { WBYEF_DATA } from '../data/academyData.ts';
+import { useAuth } from '../context/AuthContext.tsx';
 
 interface NavbarProps {
   onOpenDonate: (presetAmount?: number) => void;
@@ -13,6 +14,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenVolunteer,
   activeSection,
 }) => {
+  const { user, openAuthModal } = useAuth();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -61,7 +63,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             </span>
           </div>
 
-          <div className="flex items-center gap-4 text-xs shrink-0">
+          <div className="flex items-center gap-3 text-xs shrink-0">
             <a
               href={`tel:${WBYEF_DATA.brand.phone.replace(/\s+/g, '')}`}
               className="text-slate-300 hover:text-white transition-colors hidden md:inline"
@@ -70,10 +72,30 @@ export const Navbar: React.FC<NavbarProps> = ({
             </a>
             <button
               onClick={onOpenVolunteer}
-              className="text-amber-400 hover:text-amber-300 font-medium transition-colors"
+              className="text-amber-400 hover:text-amber-300 font-medium transition-colors cursor-pointer"
             >
               Join As Volunteer →
             </button>
+            <span className="text-slate-700 hidden sm:inline">|</span>
+            {user ? (
+              <button
+                type="button"
+                onClick={() => openAuthModal()}
+                className="hidden sm:inline-flex items-center gap-1.5 text-amber-300 hover:text-white font-medium transition-colors cursor-pointer"
+              >
+                <User className="w-3.5 h-3.5 text-amber-400" />
+                <span className="truncate max-w-[120px]">{user.displayName || user.email?.split('@')[0]}</span>
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={() => openAuthModal('signin')}
+                className="hidden sm:inline-flex items-center gap-1 text-slate-300 hover:text-white font-medium transition-colors cursor-pointer"
+              >
+                <LogIn className="w-3.5 h-3.5 text-amber-400" />
+                <span>Sign In</span>
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -141,8 +163,30 @@ export const Navbar: React.FC<NavbarProps> = ({
               })}
             </nav>
 
-            {/* Zone 3: Right-Side CTA Buttons: Become a Volunteer & Donate Now */}
+            {/* Zone 3: Right-Side CTA Buttons: Become a Volunteer & Donate Now + Auth Button */}
             <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+              {user ? (
+                <button
+                  type="button"
+                  onClick={() => openAuthModal()}
+                  className="hidden md:inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-800 font-medium text-xs sm:text-sm transition-colors border border-stone-300 cursor-pointer"
+                  aria-label="My Account"
+                >
+                  <User className="w-3.5 h-3.5 text-amber-700" />
+                  <span className="truncate max-w-[85px]">{user.displayName?.split(' ')[0] || 'Account'}</span>
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => openAuthModal('signin')}
+                  className="hidden md:inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-800 font-medium text-xs sm:text-sm transition-colors border border-stone-300 cursor-pointer"
+                  aria-label="Sign In"
+                >
+                  <LogIn className="w-3.5 h-3.5 text-amber-700" />
+                  <span>Sign In</span>
+                </button>
+              )}
+
               <button
                 type="button"
                 onClick={onOpenVolunteer}
@@ -206,6 +250,42 @@ export const Navbar: React.FC<NavbarProps> = ({
             </nav>
 
             <div className="mt-4 pt-4 border-t border-stone-100 flex flex-col gap-2">
+              {user ? (
+                <div className="flex items-center justify-between p-2.5 rounded-lg bg-amber-50/70 border border-amber-200/80 mb-1">
+                  <div className="flex items-center gap-2 truncate">
+                    <div className="w-7 h-7 rounded-full bg-amber-200 text-amber-800 flex items-center justify-center font-bold text-xs shrink-0">
+                      {user.displayName?.[0]?.toUpperCase() || 'U'}
+                    </div>
+                    <div className="flex flex-col truncate text-left">
+                      <span className="text-xs font-semibold text-stone-800 truncate">{user.displayName || 'WBYEF Member'}</span>
+                      <span className="text-[10px] text-stone-500 truncate">{user.email}</span>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      openAuthModal();
+                    }}
+                    className="px-2.5 py-1 text-xs font-semibold text-amber-800 hover:bg-amber-100 rounded-md transition-colors"
+                  >
+                    Account
+                  </button>
+                </div>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    openAuthModal('signin');
+                  }}
+                  className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-stone-300 text-stone-800 hover:bg-stone-50 font-medium text-sm"
+                >
+                  <LogIn className="w-4 h-4 text-amber-700" />
+                  <span>Member Sign In</span>
+                </button>
+              )}
+
               <button
                 type="button"
                 onClick={() => {

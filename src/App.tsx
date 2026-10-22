@@ -16,6 +16,7 @@ import { Footer } from './components/Footer.tsx';
 import { DonateModal } from './components/DonateModal.tsx';
 import { VolunteerModal } from './components/VolunteerModal.tsx';
 import { PartnerModal } from './components/PartnerModal.tsx';
+import { AuthModal } from './components/AuthModal.tsx';
 
 export default function App() {
   const [donateModalOpen, setDonateModalOpen] = useState(false);
@@ -182,6 +183,9 @@ export default function App() {
         isOpen={partnerModalOpen}
         onClose={() => setPartnerModalOpen(false)}
       />
+
+      {/* Firebase Authentication Modal (Sign In / Sign Up / Profile) */}
+      <AuthModal />
 
     </div>
   );

@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, Users, CheckCircle2, HeartHandshake, AlertCircle } from 'lucide-react';
 import { validateVolunteerForm, VolunteerFormData } from '../utils/ngo-logic.ts';
+import { useAuth } from '../context/AuthContext.tsx';
 
 interface VolunteerModalProps {
   isOpen: boolean;
@@ -8,6 +9,7 @@ interface VolunteerModalProps {
 }
 
 export const VolunteerModal: React.FC<VolunteerModalProps> = ({ isOpen, onClose }) => {
+  const { user } = useAuth();
   const [formData, setFormData] = useState<VolunteerFormData>({
     name: '',
     email: '',
@@ -16,6 +18,16 @@ export const VolunteerModal: React.FC<VolunteerModalProps> = ({ isOpen, onClose 
     availability: '',
     notes: '',
   });
+
+  useEffect(() => {
+    if (isOpen && user) {
+      setFormData((prev) => ({
+        ...prev,
+        name: prev.name || user.displayName || '',
+        email: prev.email || user.email || '',
+      }));
+    }
+  }, [isOpen, user]);
 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
